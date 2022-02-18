@@ -74,6 +74,7 @@ export VISUAL="$EDITOR"
 
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export GPG_TTY=$(tty)
+[[ -f "$HOME/.pythonrc.py" ]] && export PYTHONSTARTUP="$HOME/.pythonrc.py"
 
 if (( $+commands[exa] )); then
     alias ls="exa --git --group-directories-first"
@@ -96,6 +97,8 @@ alias tf="terraform"
 function cht() {
     curl -s "https://cht.sh/$1" | less
 }
+
+(( $+commands[keychain] )) && [[ -f ~/.ssh/id_ed25519 ]] && eval $(keychain --eval --quiet id_ed25519)
 
 # -------
 # Plugins
