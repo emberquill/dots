@@ -72,6 +72,7 @@ else
 fi
 export VISUAL="$EDITOR"
 
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export GPG_TTY=$(tty)
 
 if (( $+commands[exa] )); then
@@ -85,9 +86,16 @@ fi
 alias la="ls -a"
 alias ll="ls -al"
 alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
 alias venv="python -m venv .venv"
 alias activate="source .venv/bin/activate"
 alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
+alias tf="terraform"
+
+function cht() {
+    curl -s "https://cht.sh/$1" | less
+}
 
 # -------
 # Plugins
