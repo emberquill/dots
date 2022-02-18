@@ -72,6 +72,8 @@ else
 fi
 export VISUAL="$EDITOR"
 
+export GPG_TTY=$(tty)
+
 if (( $+commands[exa] )); then
     alias ls="exa --git --group-directories-first"
 else
@@ -87,21 +89,20 @@ alias venv="python -m venv .venv"
 alias activate="source .venv/bin/activate"
 alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
 
+# -------
+# Plugins
+# -------
+
+for PLUGIN in ~/.zshplugins/*/*.plugin.zsh; do
+    source $PLUGIN
+done
+
 # ------
 # Prompt
 # ------
 
-if (( $EUID == 0 )); then
-    PROMPT_USER="%F{red}%B%n%b "
-else
-    PROMPT_USER=""
-fi
-
-if [[ -n "$SSH_TTY" ]]; then
-    PROMPT_HOST="%F{magenta}%B%m%b "
-else
-    PROMPT_HOST=""
-fi
+(( $EUID == 0 )) && PROMPT_USER="%F{red}%B%n%b " || PROMPT_USER=""
+[[ -n "$SSH_TTY" ]] && PROMPT_HOST="%F{magenta}%B%m%b " || PROMPT_HOST=""
 
 function my_git_prompt() {
     local LASTEXITCODE="$?"
