@@ -82,7 +82,7 @@ else
     alias ls="ls --color=auto --group-directories-first"
 fi
 
-(( $+commands[bat] )) && alias cat="bat" && alias less="bat"
+(( $+commands[bat] )) && alias cat="bat"
 
 alias la="ls -a"
 alias ll="ls -al"
@@ -100,13 +100,15 @@ function cht() {
 
 (( $+commands[keychain] )) && [[ -f ~/.ssh/id_ed25519 ]] && eval $(keychain --eval --quiet id_ed25519)
 
-# -------
-# Plugins
-# -------
+# -------------------------
+# Plugins and Local Scripts
+# -------------------------
 
-for PLUGIN in ~/.zshplugins/*/*.plugin.zsh; do
+for PLUGIN in "$HOME/.zshplugins/*/*.plugin.zsh"; do
     source $PLUGIN
 done
+
+[[ -f "$HOME/.localrc" ]] && source $HOME/.localrc
 
 # ------
 # Prompt
