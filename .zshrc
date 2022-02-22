@@ -108,8 +108,6 @@ for PLUGIN in "$HOME"/.zshplugins/*/*.plugin.zsh; do
     source $PLUGIN
 done
 
-[[ -f "$HOME/.localrc" ]] && source $HOME/.localrc
-
 # ------
 # Prompt
 # ------
