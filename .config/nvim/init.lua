@@ -5,7 +5,7 @@ vim.g.polyglot_disabled = {'ansible', 'python'}
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.execute('!git clone git@github.com:wbthomason/packer.nvim ' .. install_path)
+    packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'git@github.com:wbthomason/packer.nvim', install_path})
 end
 
 vim.cmd [[
@@ -19,7 +19,20 @@ vim.cmd [[
 local use = require('packer').use
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
-    use 'nvim-lualine/lualine.nvim'
+    use {
+        'nvim-lualine/lualine.nvim',
+        config = function()
+            vim.o.showmode = false
+            require('lualine').setup {
+                options = {
+                    icons_enabled = false,
+                    theme = require('material.lualine'),
+                    component_separators = '|',
+                    section_separators = '',
+                }
+            }
+        end
+    }
     use 'numirias/semshi'
     use 'edkolev/tmuxline.vim'
     use 'sheerun/vim-polyglot'
@@ -30,6 +43,10 @@ require('packer').startup(function()
             vim.cmd('colorscheme material')
         end
     }
+
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
 
 -- General options
@@ -39,17 +56,6 @@ vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
-
--- Set statusbar
-vim.o.showmode = false
-require('lualine').setup {
-    options = {
-        icons_enabled = false,
-        theme = require('material.lualine'),
-        component_separators = '|',
-        section_separators = '',
-    },
-}
 
 -- Use system python for nvim
 if os.getenv('VIRTUAL_ENV') ~= nil then
