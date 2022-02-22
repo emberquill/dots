@@ -91,8 +91,10 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias venv="python -m venv .venv"
 alias activate="source .venv/bin/activate"
-alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
+alias dot="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
 alias tf="terraform"
+alias tfswitch="tfswitch -b $HOME/.local/bin/terraform"
+alias dotupdate="dot submodule update --init --recursive --remote"
 
 function cht() {
     curl -s "https://cht.sh/$1" | less
