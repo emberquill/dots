@@ -19,6 +19,10 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 -- Plugins
+function get_setup(name)
+    return string.format('require("setup/%s")', name)
+end
+
 return require('packer').startup({
     function(use)
         use('wbthomason/packer.nvim')
@@ -26,15 +30,15 @@ return require('packer').startup({
         use('edkolev/tmuxline.vim')
         use({
             'sheerun/vim-polyglot',
-            config = require('setup/polyglot')
-        })
-        use({
-            'nvim-lualine/lualine.nvim',
-            config = require('setup/lualine')
+            config = get_setup('polyglot')
         })
         use({
             'joshdick/onedark.vim',
-            config = require('setup/onedark')
+            config = get_setup('onedark')
+        })
+        use({
+            'nvim-lualine/lualine.nvim',
+            config = get_setup('lualine')
         })
         
         if packer_bootstrap then
