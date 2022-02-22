@@ -23,7 +23,13 @@ require('packer').startup(function()
     use 'numirias/semshi'
     use 'edkolev/tmuxline.vim'
     use 'sheerun/vim-polyglot'
-    use 'kaicataldo/material.vim'
+    use {
+        'kaicataldo/material.vim',
+        config = function()
+            vim.o.termguicolors = true
+            vim.cmd('colorscheme material')
+        end
+    }
 end)
 
 -- General options
@@ -33,10 +39,6 @@ vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
-
--- Set colorscheme
-vim.o.termguicolors = true
-vim.cmd [[colorscheme material]]
 
 -- Set statusbar
 vim.o.showmode = false
