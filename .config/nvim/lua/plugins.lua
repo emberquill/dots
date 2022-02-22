@@ -38,7 +38,11 @@ return require('packer').startup({
         })
         use({
             'nvim-lualine/lualine.nvim',
-            config = get_setup('lualine')
+            config = get_setup('lualine'),
+            requires = {
+                'kyazdani42/nvim-web-devicons',
+                opt = true
+            }
         })
         
         if packer_bootstrap then
