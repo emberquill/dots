@@ -1,4 +1,5 @@
 vim.o.showmode = false
+
 require('lualine').setup({
     options = {
         icons_enabled = true,
