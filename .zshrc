@@ -104,7 +104,7 @@ function cht() {
 # Plugins and Local Scripts
 # -------------------------
 
-for PLUGIN in "$HOME/.zshplugins/*/*.plugin.zsh"; do
+for PLUGIN in "$HOME"/.zshplugins/*/*.plugin.zsh; do
     source $PLUGIN
 done
 
