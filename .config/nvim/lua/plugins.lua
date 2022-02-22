@@ -28,10 +28,7 @@ return require('packer').startup({
         use('wbthomason/packer.nvim')
         use('numirias/semshi')
         use('edkolev/tmuxline.vim')
-        use({
-            'sheerun/vim-polyglot',
-            config = get_setup('polyglot')
-        })
+        use('sheerun/vim-polyglot')
         use({
             'joshdick/onedark.vim',
             config = get_setup('onedark')
