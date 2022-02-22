@@ -30,12 +30,7 @@ return require('packer').startup({
         })
         use({
             'nvim-lualine/lualine.nvim',
-            config = require('setup/lualine'),
-            event = 'VimEnter',
-            requires = {
-                'kyazdani42/nvim-web-devicons',
-                opt = true
-            }
+            config = require('setup/lualine')
         })
         use({
             'joshdick/onedark.vim',
