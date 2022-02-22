@@ -1,7 +1,7 @@
 vim.cmd([[
     augroup Packer
         autocmd!
-        autocmd BufWritePost init.lua PackerCompile
+        autocmd BufWritePost plugins.lua PackerCompile
     augroup end
 ]])
 
@@ -18,10 +18,6 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     })
 end
 
-function get_setup(name)
-    return string.format('require("setup/%s")', name)
-end
-
 -- Plugins
 return require('packer').startup({
     function(use)
@@ -30,16 +26,20 @@ return require('packer').startup({
         use('edkolev/tmuxline.vim')
         use({
             'sheerun/vim-polyglot',
-            config = get_setup('vim-polyglot'),
+            config = require('setup/polyglot')
         })
         use({
             'nvim-lualine/lualine.nvim',
-            config = get_setup('lualine'),
+            config = require('setup/lualine'),
             event = 'VimEnter',
             requires = {
-                'kaicataldo/material.vim',
-                config = get_setup('material.vim'),
-            },
+                'kyazdani42/nvim-web-devicons',
+                opt = true
+            }
+        })
+        use({
+            'joshdick/onedark.vim',
+            config = require('setup/onedark')
         })
         
         if packer_bootstrap then
@@ -48,11 +48,11 @@ return require('packer').startup({
     end,
     config = {
         display = {
-            open_fn = require('packer.util').float,
+            open_fn = require('packer.util').float
         },
         profile = {
             enable = true,
-            threshold = 1,
+            threshold = 1
         }
     }
 })
