@@ -30,12 +30,11 @@ end
 return require('packer').startup({
     function(use)
         use('wbthomason/packer.nvim')
-        use('numirias/semshi')
         use('edkolev/tmuxline.vim')
-        use('sheerun/vim-polyglot')
+        --use('sheerun/vim-polyglot')
         use({
-            'joshdick/onedark.vim',
-            config = get_setup('onedark')
+            'RRethy/nvim-base16',
+            config = get_setup('base16')
         })
         use({
             'nvim-lualine/lualine.nvim',
@@ -44,6 +43,15 @@ return require('packer').startup({
                 'kyazdani42/nvim-web-devicons',
                 opt = true
             }
+        })
+        use({
+            'nvim-treesitter/nvim-treesitter',
+            config = get_setup('treesitter'),
+            run = ':TSUpdate'
+        })
+        use({
+            'neovim/nvim-lspconfig',
+            config = get_setup('lspconfig')
         })
         
         if packer_bootstrap then
