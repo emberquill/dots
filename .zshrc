@@ -122,7 +122,7 @@ done
 (( $EUID == 0 )) && PROMPT_USER="%F{red}%B%n%b " || PROMPT_USER=""
 [[ -n "$SSH_TTY" ]] && PROMPT_HOST="%F{magenta}%B%m%b " || PROMPT_HOST=""
 
-function my_git_prompt() {
+function my_prompt() {
     local LASTEXITCODE="$?"
     PROMPT="${PROMPT_USER}${PROMPT_HOST}"
     RPROMPT=" [%*]"
@@ -157,33 +157,6 @@ function my_git_prompt() {
     PROMPT+=$'%B\u276f%b%f '
 }
 
-function my_prompt() {
-    local LASTEXITCODE="$?"
-    PROMPT="${PROMPT_USER}${PROMPT_HOST}"
-    RPROMPT=" [%*]"
-
-    # Window Title
-    print -Pn '\e]2;%~\a'
-
-    # Working Directory and Virtual Environment
-    PROMPT+="%F{blue}%~"
-    [[ -n $VIRTUAL_ENV ]] && PROMPT+=$' %F{yellow}\uf423'" $(basename "$(dirname "$VIRTUAL_ENV")")"
-
-    # Arrow color and exit code
-    if (( $LASTEXITCODE == 0 )); then
-        PROMPT+=$'\n%F{magenta}'
-    else
-        PROMPT+=$'\n%F{red}'
-        RPROMPT=" %F{red}%B${LASTEXITCODE}%b%f${RPROMPT}"
-    fi
-
-    PROMPT+=$'%B\u276f%b%f '
-}
-
 autoload -Uz add-zsh-hook
-if (( $+functions[gitstatus_query] )); then
-    gitstatus_stop MY && gitstatus_start MY
-    add-zsh-hook precmd my_git_prompt
-else
-    add-zsh-hook precmd my_prompt
-fi
+(( $+functions[gitstatus_query] )) && gitstatus_stop MY && gitstatus_start MY
+add-zsh-hook precmd my_prompt
