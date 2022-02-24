@@ -98,6 +98,7 @@ alias tfswitch="tfswitch -b $HOME/.local/bin/terraform"
 function dotupdate() {
     dot pull
     dot submodule update --init --recursive --remote
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 }
 
 function cht() {
@@ -158,12 +159,8 @@ function my_git_prompt() {
 
 function my_prompt() {
     local LASTEXITCODE="$?"
-    PROMPT=""
+    PROMPT="${PROMPT_USER}${PROMPT_HOST}"
     RPROMPT=" [%*]"
-
-    # Only show username if root, host if on SSH
-    (( $EUID == 0 )) && PROMPT+="%F{red}%B%n%b "
-    [[ -n "$SSH_TTY" ]] && PROMPT+="%F{magenta}%B%m%b "
 
     # Window Title
     print -Pn '\e]2;%~\a'
