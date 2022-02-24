@@ -181,7 +181,7 @@ function my_prompt() {
 }
 
 autoload -Uz add-zsh-hook
-if (( $+commands[gitstatus_query] )); then
+if (( $+functions[gitstatus_query] )); then
     gitstatus_stop MY && gitstatus_start MY
     add-zsh-hook precmd my_git_prompt
 else
