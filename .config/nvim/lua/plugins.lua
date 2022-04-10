@@ -53,13 +53,17 @@ return require('packer').startup({
             'neovim/nvim-lspconfig',
             config = get_setup('lspconfig')
         })
-        use({
-            'windwp/nvim-autopairs',
-            config = require('nvim-autopairs').setup({})
-        })
         
         if packer_bootstrap then
+            use({
+                'windwp/nvim-autopairs'
+            })
             require('packer').sync()
+        else
+            use({
+                'windwp/nvim-autopairs',
+                config = require('nvim-autopairs').setup({})
+            })
         end
     end,
     config = {
