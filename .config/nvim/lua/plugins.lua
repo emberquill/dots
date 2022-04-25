@@ -47,7 +47,7 @@ return require('packer').startup({
         use({
             'nvim-treesitter/nvim-treesitter',
             config = get_setup('treesitter'),
-            run = ':TSUpdate'
+            --run = ':TSUpdate'
         })
         use({
             'neovim/nvim-lspconfig',
