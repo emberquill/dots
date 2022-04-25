@@ -101,7 +101,7 @@ function dotupdate() {
     echo "Updating submodules..."
     dot submodule update --init --recursive --remote
     echo "Updating nvim plugins..."
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'TSUpdateSync' -c 'PackerSync'
 }
 
 function cht() {
