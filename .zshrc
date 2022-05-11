@@ -82,7 +82,16 @@ else
     alias ls="ls --color=auto --group-directories-first"
 fi
 
-(( $+commands[bat] )) && alias cat="bat"
+if (( $+commands[bat] )); then
+    alias cat=bat
+    function cht() {
+        curl -s "https://cht.sh/$1" | bat -p
+    }
+else
+    function cht() {
+        curl -s "https://cht.sh/$1" | less
+    }
+fi
 
 alias la="ls -a"
 alias ll="ls -al"
@@ -102,10 +111,6 @@ function dotupdate() {
     dot submodule update --init --recursive --remote
     echo "Updating nvim plugins..."
     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'TSUpdateSync' -c 'PackerSync'
-}
-
-function cht() {
-    curl -s "https://cht.sh/$1" | less
 }
 
 (( $+commands[keychain] )) && [[ -f ~/.ssh/id_ed25519 ]] && eval $(keychain --eval --quiet id_ed25519)
