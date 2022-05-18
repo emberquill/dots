@@ -168,3 +168,8 @@ function my_prompt() {
 autoload -Uz add-zsh-hook
 (( $+functions[gitstatus_query] )) && gitstatus_stop MY && gitstatus_start MY
 add-zsh-hook precmd my_prompt
+
+if (( $+commands[aws_completer] )); then
+    autoload -Uz bashcompinit && bashcompinit
+    complete -C aws_completer aws
+fi
