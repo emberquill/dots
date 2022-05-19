@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-[[ "$(uname -s)" == "Darwin" ]] || exit 0
+[[ "$(uname -s)" == "Darwin" ]] || return 0
 
 unsetopt beep
 
