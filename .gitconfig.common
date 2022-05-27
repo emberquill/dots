@@ -1,0 +1,15 @@
+# vim:ft=gitconfig
+
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+    default = simple
+    followTags = true
+[pull]
+    ff = only
+[init]
+    defaultBranch = master
+[url "git@github.com:"]
+    insteadOf = "gh:"
+[url "https://aur.archlinux.org/"]
+    insteadOf = "aur:"
