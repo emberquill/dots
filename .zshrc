@@ -98,8 +98,6 @@ alias ll="ls -al"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
-alias venv="python -m venv .venv"
-alias activate="source .venv/bin/activate"
 alias dot="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
 alias tf="terraform"
 alias tfswitch="tfswitch -b $HOME/.local/bin/terraform"
@@ -140,7 +138,14 @@ function my_prompt() {
 
     # Working Directory and Venv
     PROMPT+="%F{blue}%~"
-    [[ -n $VIRTUAL_ENV ]] && PROMPT+=$' %F{yellow}\uf423'" $(basename "$(dirname "$VIRTUAL_ENV")")"
+    if [[ -n $VIRTUAL_ENV ]]; then
+        PROMPT+=$' %F{yellow}\uf423'
+        if [[ "$(dirname "$VIRTUAL_ENV")" == "$HOME/.venvs" ]]; then
+            PROMPT+=" $(basename "$VIRTUAL_ENV")"
+        else
+            PROMPT+=" $(basename "$(dirname "$VIRTUAL_ENV")")"
+        fi
+    fi
 
     # Git Status
     if gitstatus_query MY && [[ $VCS_STATUS_RESULT == ok-sync ]]; then
