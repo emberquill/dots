@@ -7,7 +7,7 @@ function venv() {
         if [[ "$1" == "create" ]]; then
             python -m venv .venv
         elif [[ "$1" == "activate" ]]; then
-            if [[ -f .venv ]]; then
+            if [[ -d .venv ]]; then
                 source .venv/bin/activate
             else
                 source ~/.venvs/default/bin/activate
