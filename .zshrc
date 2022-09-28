@@ -112,12 +112,17 @@ function dotupdate() {
 
 (( $+commands[keychain] )) && [[ -f ~/.ssh/id_ed25519 ]] && eval $(keychain --eval --quiet id_ed25519)
 
+if (( $+commands[aws_completer] )); then
+    autoload -Uz bashcompinit && bashcompinit
+    complete -C aws_completer aws
+fi
+
 # -------------------------
 # Plugins and Local Scripts
 # -------------------------
 
 # Load Local Scripts
-for scr in ${ZDOTDIR:-$HOME/.config/zsh}/scripts/*.zsh; do
+for scr in $HOME/.config/zsh/scripts/*.zsh; do
     source $scr
 done
 
@@ -183,8 +188,3 @@ function my_prompt() {
 autoload -Uz add-zsh-hook
 (( $+functions[gitstatus_query] )) && gitstatus_stop MY && gitstatus_start MY
 add-zsh-hook precmd my_prompt
-
-if (( $+commands[aws_completer] )); then
-    autoload -Uz bashcompinit && bashcompinit
-    complete -C aws_completer aws
-fi
