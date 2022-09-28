@@ -103,11 +103,10 @@ alias tf="terraform"
 alias tfswitch="tfswitch -b $HOME/.local/bin/terraform"
 
 function dotupdate() {
-    echo "Updating dotfiles..."
+    echo "$(tput bold)==> $(tput setaf 4)Updating dotfiles$(tput sgr0)"
     dot pull
-    echo "Updating plugins..."
     plugin-update
-    echo "Updating nvim plugins..."
+    echo "$(tput bold)==> $(tput setaf 4)Updating nvim plugins$(tput sgr0)"
     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'TSUpdateSync' -c 'PackerSync'
 }
 

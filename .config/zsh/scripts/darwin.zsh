@@ -6,11 +6,10 @@ unsetopt beep
 
 # Update Homebrew and Dotfiles
 function update() {
-    echo "$(tput bold)==> $(tput setaf 4)Updating Homebrew...$(tput sgr0)"
+    echo "$(tput bold)==> $(tput setaf 4)Updating Homebrew$(tput sgr0)"
     brew update
     brew upgrade
     brew cleanup --prune=7
-    echo "$(tput bold)==> $(tput setaf 4)Updating Dotfiles...$(tput sgr0)"
     dotupdate
 }
 

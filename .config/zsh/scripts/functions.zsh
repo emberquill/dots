@@ -38,6 +38,8 @@ alias activate="venv activate"
 # Plugin Manager
 #---------------
 
+# Adapted from: https://github.com/mattmc3/zsh_unplugged
+
 export ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
 [[ ! -d $ZPLUGINDIR ]] && mkdir -p $ZPLUGINDIR && plugin-load $plugins
 
@@ -65,7 +67,7 @@ function plugin-load {
 function plugin-update {
     for d in $ZPLUGINDIR/*/.git(/); do
         echo "Updating ${d:h:t}..."
-        command git -C "${d:h}" pull --ff --recurse-submodules --depth 1 --rebase --autostash
+        command git -C "${d:h}" pull -q --ff --recurse-submodules --depth 1 --rebase --autostash
     done
 }
 
