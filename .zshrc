@@ -105,8 +105,8 @@ alias tfswitch="tfswitch -b $HOME/.local/bin/terraform"
 function dotupdate() {
     echo "Updating dotfiles..."
     dot pull
-    echo "Updating submodules..."
-    dot submodule update --init --recursive --remote
+    echo "Updating plugins..."
+    plugin-update
     echo "Updating nvim plugins..."
     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'TSUpdateSync' -c 'PackerSync'
 }
@@ -117,9 +117,20 @@ function dotupdate() {
 # Plugins and Local Scripts
 # -------------------------
 
-for PLUGIN in "$HOME"/.zshplugins/*/*.plugin.zsh; do
-    source $PLUGIN
+# Load Local Scripts
+for scr in ${ZDOTDIR:-$HOME/.config/zsh}/scripts/*.zsh; do
+    source $scr
 done
+
+# Load Plugins
+plugins=(
+    romkatv/gitstatus
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-completions
+    zsh-users/zsh-syntax-highlighting
+)
+
+plugin-load $plugins
 
 # ------
 # Prompt
