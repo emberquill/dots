@@ -65,10 +65,8 @@ function plugin-load {
 }
 
 function plugin-update {
-    for d in $ZPLUGINDIR/*/.git(/); do
-        echo "Updating ${d:h:t}..."
-        command git -C "${d:h}" pull -q --ff --recurse-submodules --depth 1 --rebase --autostash
-    done
+    echo "Updating zsh plugins..."
+    ls $ZPLUGINDIR | xargs -P10 -I{} sh -c "git -C $ZPLUGINDIR/{} pull -q --ff --recurse-submodules --depth 1 --rebase --autostash"
 }
 
 function plugin-clean {
