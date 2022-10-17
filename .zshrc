@@ -72,7 +72,19 @@ else
 fi
 export VISUAL="$EDITOR"
 
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
+if (( $(less --version | head -n1 | cut -d' ' -f2) < 581 )); then
+    function man {
+        LESS_TERMCAP_md=$'\e[01;31m' \
+        LESS_TERMCAP_me=$'\e[0m' \
+        LESS_TERMCAP_so=$'\e[01;44;33m' \
+        LESS_TERMCAP_se=$'\e[0m' \
+        LESS_TERMCAP_us=$'\e[01;32m' \
+        LESS_TERMCAP_ue=$'\e[0m' \
+        command man "$@"
+    }
+else
+    export MANPAGER="less -R --use-color -Dd+r -Du+b"
+fi
 export GPG_TTY=$(tty)
 [[ -f "$HOME/.pythonrc.py" ]] && export PYTHONSTARTUP="$HOME/.pythonrc.py"
 
