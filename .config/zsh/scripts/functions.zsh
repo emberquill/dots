@@ -41,7 +41,6 @@ alias activate="venv activate"
 # Adapted from: https://github.com/mattmc3/zsh_unplugged
 
 export ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
-[[ ! -d $ZPLUGINDIR ]] && mkdir -p $ZPLUGINDIR && plugin-load $plugins
 
 function plugin-load {
     local plugrepo plugdir initfile
@@ -72,3 +71,5 @@ function plugin-update {
 function plugin-clean {
     rm -rf $ZPLUGINDIR/*
 }
+
+[[ ! -d $ZPLUGINDIR ]] && mkdir -p $ZPLUGINDIR && plugin-load $plugins
