@@ -113,7 +113,6 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias dot="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
 alias tf="terraform"
-alias tfswitch="tfswitch -b $HOME/.local/bin/terraform"
 
 function dotupdate() {
     echo "$(tput bold)==> $(tput setaf 4)Updating dotfiles$(tput sgr0)"
