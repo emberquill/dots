@@ -1,11 +1,16 @@
 # zshrc
-HISTFILE=~/.zhistory
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+
+HISTFILE="$XDG_STATE_HOME/zsh/history"
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory autocd extendedglob histignorespace nomatch notify nopromptbang nopromptsubst promptpercent
 zstyle :compinstall filename '$HOME/.zshrc'
 autoload -Uz compinit
-compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 
 # ------------------
 # Keyboard Shortcuts
@@ -54,7 +59,7 @@ fi
 path=("$HOME/.local/bin" $path)
 
 if (( $+commands[go] )); then
-    export GOPATH="$HOME/go"
+    export GOPATH="$XDG_DATA_HOME/go"
     export GOBIN="$GOPATH/bin"
     path=($GOBIN $path)
 fi
@@ -87,7 +92,7 @@ else
     export MANPAGER="less -R --use-color -Dd+r -Du+b"
 fi
 export GPG_TTY=$(tty)
-[[ -f "$HOME/.pythonrc.py" ]] && export PYTHONSTARTUP="$HOME/.pythonrc.py"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc.py"
 
 if (( $+commands[exa] )); then
     alias ls="exa --git --group-directories-first"
@@ -96,7 +101,6 @@ else
 fi
 
 if (( $+commands[bat] )); then
-    alias cat=bat
     function cht() {
         curl -s "https://cht.sh/$1" | bat -p
     }
@@ -122,7 +126,13 @@ function dotupdate() {
     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'TSUpdateSync' -c 'PackerSync'
 }
 
-(( $+commands[keychain] )) && [[ -f ~/.ssh/id_ed25519 ]] && eval $(keychain --eval --quiet id_ed25519)
+# Use GPG Agent to cache SSH Keys
+if (( ! ${+SSH_TTY} )); then
+    unset SSH_AGENT_PID
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+    gpg-connect-agent -q /bye >/dev/null
+    (( $(ssh-add -l | wc -l) == 0 )) && ssh-add
+fi
 
 if (( $+commands[aws_completer] )); then
     autoload -Uz bashcompinit && bashcompinit
@@ -134,7 +144,7 @@ fi
 # -------------------------
 
 # Load Local Scripts
-for scr in $HOME/.config/zsh/scripts/*.zsh; do
+for scr in $XDG_CONFIG_HOME/zsh/scripts/*.zsh; do
     source $scr
 done
 
@@ -167,7 +177,7 @@ function my_prompt() {
     PROMPT+="%F{blue}%~"
     if [[ -n $VIRTUAL_ENV ]]; then
         PROMPT+=$' %F{yellow}\uf423'
-        if [[ "$(dirname "$VIRTUAL_ENV")" == "$HOME/.venvs" ]]; then
+        if [[ "$(dirname "$VIRTUAL_ENV")" == "$XDG_DATA_HOME/venvs" ]]; then
             PROMPT+=" $(basename "$VIRTUAL_ENV")"
         else
             PROMPT+=" $(basename "$(dirname "$VIRTUAL_ENV")")"
