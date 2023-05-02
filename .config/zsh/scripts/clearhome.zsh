@@ -12,4 +12,3 @@ fi
 (( $+commands[oci] )) && export OCI_CLI_CONFIG_FILE="$XDG_CONFIG_HOME/oci/config"
 
 export LESSHISTFILE="$XDG_STATE_HOME/less/history"
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
