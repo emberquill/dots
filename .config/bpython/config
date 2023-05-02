@@ -1,0 +1,2 @@
+[general]
+hist_file = $HOME/.local/share/bpython/history
