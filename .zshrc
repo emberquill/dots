@@ -188,12 +188,12 @@ function my_prompt() {
     if gitstatus_query MY && [[ $VCS_STATUS_RESULT == ok-sync ]]; then
         prompt+=$' %F{cyan}\ue0a0'"${${VCS_STATUS_LOCAL_BRANCH:-@${VCS_STATUS_COMMIT}}//\%/%%}"
         [[ -n $VCS_STATUS_TAG ]] && PROMPT+=$' \uf02b '"${VCS_STATUS_TAG}"
-        (( $VCS_STATUS_COMMITS_AHEAD != 0 )) && PROMPT+=$' %F{green}\uf55c'"${VCS_STATUS_COMMITS_AHEAD}%f"
-        (( $VCS_STATUS_COMMITS_BEHIND != 0 )) && PROMPT+=$' %F{red}\uf544'"${VCS_STATUS_COMMITS_BEHIND}%f"
-        (( $VCS_STATUS_HAS_STAGED != 0 )) && PROMPT+=$' %F{green}\u25cf%f'
-        (( $VCS_STATUS_HAS_UNSTAGED != 0 )) && PROMPT+=$' %F{yellow}\ufc23%f'
+        (( $VCS_STATUS_COMMITS_AHEAD != 0 )) && PROMPT+=$' %F{green}\uf431'"${VCS_STATUS_COMMITS_AHEAD}%f"
+        (( $VCS_STATUS_COMMITS_BEHIND != 0 )) && PROMPT+=$' %F{red}\uf433'"${VCS_STATUS_COMMITS_BEHIND}%f"
+        (( $VCS_STATUS_HAS_STAGED != 0 )) && PROMPT+=$' %F{green}\uf111%f'
+        (( $VCS_STATUS_HAS_UNSTAGED != 0 )) && PROMPT+=$' %F{yellow}\ueb59%f'
         (( $VCS_STATUS_HAS_UNTRACKED != 0 )) && PROMPT+=$' %F{magenta}\uf067%f'
-        (( $VCS_STATUS_STASHES != 0 )) && PROMPT+=$' %F{blue}\uf73a '$VCS_STATUS_STASHES
+        (( $VCS_STATUS_STASHES != 0 )) && PROMPT+=$' %F{blue}\U000f0403 '$VCS_STATUS_STASHES
     fi
 
     # Arrow color and exit code
