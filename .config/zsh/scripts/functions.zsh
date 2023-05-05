@@ -78,7 +78,8 @@ function plugin-clean {
 # bat with modeline detection
 #----------------------------
 
-if (( $+commands[bat] )); then
+(( $+commands[batcat] )) && alias bat=batcat
+if (( $+commands[bat] )) || (( $+commands[batcat] )); then
     IFS=, read -rA BAT_LANGUAGES <<< $(bat --list-languages | cut -d':' -f2 | sed -z 's/\n/,/g')
 
     function cat {
