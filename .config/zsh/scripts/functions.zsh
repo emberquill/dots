@@ -78,18 +78,20 @@ function plugin-clean {
 # bat with modeline detection
 #----------------------------
 
-IFS=, read -rA BAT_LANGUAGES <<< $(bat --list-languages | cut -d':' -f2 | sed -z 's/\n/,/g')
+if (( $+commands[bat] )); then
+    IFS=, read -rA BAT_LANGUAGES <<< $(bat --list-languages | cut -d':' -f2 | sed -z 's/\n/,/g')
 
-function cat {
-    local HEAD
-    local FT
-    HEAD=$(head -n1 $1 2>/dev/null)
-    if [[ $HEAD = *"vim:"*"ft="* ]]; then
-        FT=$(cut -d'=' -f2 <(echo $HEAD))
-        if (($BAT_LANGUAGES[(I)$FT])); then
-            bat -l $FT $1
-            return 0
+    function cat {
+        local HEAD
+        local FT
+        HEAD=$(head -n1 $1 2>/dev/null)
+        if [[ $HEAD = *"vim:"*"ft="* ]]; then
+            FT=$(cut -d'=' -f2 <(echo $HEAD))
+            if (($BAT_LANGUAGES[(I)$FT])); then
+                bat -l $FT $1
+                return 0
+            fi
         fi
-    fi
-    bat $1
-}
+        bat $1
+    }
+fi
