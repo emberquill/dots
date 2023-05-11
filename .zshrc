@@ -115,7 +115,7 @@ alias ll="ls -al"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
-alias dot="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
+alias dot="/usr/bin/git --git-dir=$XDG_CONFIG_HOME/dotfiles/ --work-tree=$HOME"
 alias tf="terraform"
 
 function dotupdate() {
