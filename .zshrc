@@ -93,6 +93,7 @@ else
 fi
 export GPG_TTY=$(tty)
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc.py"
+export PIP_REQUIRE_VIRTUALENV=true
 
 if (( $+commands[exa] )); then
     alias ls="exa --git --group-directories-first"
