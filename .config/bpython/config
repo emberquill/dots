@@ -1,2 +1,2 @@
 [general]
-hist_file = $HOME/.local/state/bpython_history
+hist_file = ~/.local/state/bpython_history
