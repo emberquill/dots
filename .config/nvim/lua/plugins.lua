@@ -53,6 +53,10 @@ return require('packer').startup({
             'neovim/nvim-lspconfig',
             config = get_setup('lspconfig')
         })
+        use({
+            'nvim-tree/nvim-tree.lua',
+            config = get_setup('nvim-tree')
+        })
         
         if packer_bootstrap then
             use({
