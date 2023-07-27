@@ -14,3 +14,9 @@ fi
 
 alias aurto="ssh -t aurto aurto"
 alias aur="ssh -t aurto aur"
+
+function checkup {
+    checkupdates
+    (( $+commands[aur-check-updates] )) && aur-check-updates || echo "aur-check-updates not installed, skipping AUR" >&2
+    (( $+commands[checkrebuild] )) && checkrebuild -v || echo "rebuild-detector not installed, skipping AUR rebuilds" >&2
+}
