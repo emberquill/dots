@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+[[ -f "/etc/arch-release" ]] || return 0
+
 if (( $+commands[rankmirrors] )); then
     function mirrors {
         local country
