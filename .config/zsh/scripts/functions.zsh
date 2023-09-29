@@ -65,7 +65,7 @@ function plugin-load {
 
 function plugin-update {
     echo "Updating zsh plugins..."
-    ls $ZPLUGINDIR | xargs -P10 -I{} sh -c "git -C $ZPLUGINDIR/{} pull -q --ff --recurse-submodules --depth 1 --rebase --autostash"
+    command ls $ZPLUGINDIR | xargs -P10 -I{} sh -c "git -C $ZPLUGINDIR/{} pull -q --ff --recurse-submodules --depth 1 --rebase --autostash"
 }
 
 function plugin-clean {
