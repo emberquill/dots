@@ -49,7 +49,7 @@ function plugin-load {
         initfile=$plugdir/${plugrepo:t}.plugin.zsh
         if [[ ! -d $plugdir ]]; then
             echo "Cloning $plugrepo..."
-            git clone -q --depth=1 --recursive --shallow-submodules git@github.com:$plugrepo $plugdir
+            git clone -q --depth=1 --recursive --shallow-submodules https://github.com/$plugrepo $plugdir
         fi
         if [[ ! -e $initfile ]]; then
             local -a initfiles=($plugdir/*.plugin.{z,}sh(N) $plugdir/*.{z,}sh{-theme,}(N))
