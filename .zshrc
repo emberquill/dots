@@ -64,6 +64,8 @@ if (( $+commands[go] )); then
     path=($GOBIN $path)
 fi
 
+[ -d $HOME/.cargo/bin ] && path=($HOME/.cargo/bin $path)
+
 export PATH
 
 if (( $+commands[nvim] )); then
